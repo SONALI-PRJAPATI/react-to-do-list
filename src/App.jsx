@@ -2,19 +2,12 @@
 import React from 'react'
 
 import { useState } from "react";
-
+import Create from './components/Create';
+import Header from './components/Header';
 const App = () => {
-    const [title, settitle] = useState("");
+   
     const [tasks, settasks] = useState([]);
-    const TaskSubmitHandler = (e) => {
-        e.preventDefault();
-
-        const copyTasks = [...tasks];
-        copyTasks.push({ title, completed: false });
-        settasks(copyTasks);
-        settitle("");
-    };
-
+   
     const DeleteHandler =(i) =>{
         const copyTasks = [...tasks];
         let isvalid = false;
@@ -85,9 +78,9 @@ const App = () => {
                   {tasks.length}
               </div>
           </div> */}
-          <Headers tasks = {tasks}/>
+          <Header tasks = {tasks} />
           
-          <form
+          {/* <form
               onSubmit={TaskSubmitHandler}
               className="w-[35%] flex justify-between px-5 my-[2%]"
           >
@@ -101,7 +94,8 @@ const App = () => {
               <button className="outline-none text-4xl font-extrabold flex justify-center items-center w-[5vmax] h-[5vmax] rounded-full bg-orange-600">
                   <i className="ri-add-fill"></i>
               </button>
-          </form>
+          </form> */}
+          <Create tasks = {tasks} settasks ={settasks} />
           {/*  */}
           <ul className="list-none w-[35%] ">{tasksrender}</ul>
       </div>

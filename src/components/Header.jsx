@@ -3,7 +3,7 @@ import React from 'react'
 const Header = (props) => {
     const tasks =props.tasks;
   return (
-    <div>
+    
        <div className="mt-[7%] w-[35%] h-[30vh] border rounded-3xl flex justify-around items-center">
               <div className="text-yellow-100">
                   <h1 className="text-3xl font-bold">LETS TODO</h1>
@@ -14,7 +14,7 @@ const Header = (props) => {
                   {tasks.length}
               </div>
           </div>
-    </div>
+    
   )
 }
 
