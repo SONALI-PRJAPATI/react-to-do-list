@@ -1,27 +1,21 @@
-import React from 'react'
+import { useContext } from "react";
+import { todocontext } from "../Context/Context";
 
-const Show = (props) => {
-    const tasks = props.tasks;
-    const settasks = props.settasks;
-    const DeleteHandler =(i) =>{
-        const copyTasks = [...tasks];
-        let isvalid = false;
-        if(!copyTasks[i].completed){
-        isvalid = confirm("Do you want to delete this task ?");
-        }
-        if(isvalid || copyTasks[i].completed){
-        copyTasks.splice(i,1);
-        settasks(copyTasks);
+const Show = () => {
+    const [tasks, settasks] = useContext(todocontext);
+
+    const DeleteHandler = (i) => {
+        let isValid = false;
+        if (!tasks[i].completed) {
+            isValid = confirm("Do you really Want to delete this Task ?");
         }
 
-        //settasks(tasks.filter((task,index) => index!==1))
-    }
+        if (isValid || tasks[i].completed) {
+            settasks(tasks.filter((task, index) => index !== i));
+        }
+    };
 
-    const CompleteTaskToggle = ( i) => {
-        // e.target.classList.toggle("bg-green-500");
-        // e.target.classList.toggle("border");
-        // e.target.nextSibling.classList.toggle("line-through");
-
+    const CompleteTaskToggle = (i) => {
         const copyTasks = [...tasks];
         copyTasks[i].completed = !tasks[i].completed;
         settasks(copyTasks);
@@ -32,8 +26,6 @@ const Show = (props) => {
             No pending Tasks...
         </h1>
     );
-
-
     if (tasks.length > 0) {
         tasksrender = tasks.map((task, index) => {
             return (
@@ -58,15 +50,16 @@ const Show = (props) => {
                     </div>
                     <div className="flex gap-3 text-2xl text-yellow-100">
                         <i className="ri-file-edit-line"></i>
-                        <i onClick={() => DeleteHandler(index)} className="ri-delete-bin-3-line"></i>
+                        <i
+                            onClick={() => DeleteHandler(index)}
+                            className="ri-delete-bin-3-line"
+                        ></i>
                     </div>
                 </li>
             );
         });
     }
-  return (
-    <ul className="list-none w-[35%] ">{tasksrender}</ul>
-  )
-}
+    return <ul className="list-none w-[35%] ">{tasksrender}</ul>;
+};
 
-export default Show
+export default Show;
